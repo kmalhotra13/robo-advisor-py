@@ -45,7 +45,7 @@ getsymbol()
 # Assemble URL
 
 request_url = f"https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol={symbol}&outputsize=compact&apikey={api_key}"
-print(request_url)
+# print(request_url)
 
 # TODO: use the "requests" package to issue a "GET" request to the specified url, and store the JSON response in a variable...
 
@@ -60,7 +60,7 @@ if "Error" in response.text:
 # print("RESPONSE STATUS: " + str(response.status_code))
 # print("RESPONSE TEXT: " + response.text)
 
-#Turn JSON into readable format:
+# Turn JSON into readable format:
 
 parsed_response = response.json()
 
@@ -97,8 +97,8 @@ data = pd.DataFrame({
 	})
 
 # TODO: traverse the nested response data structure to find the latest closing price and other values of interest...
-latest_price_usd = "{0:,.2f}".format(float(data.iloc[0]['Closing Price'])) #<—— Taken from Groceries Exercise
-print(latest_price_usd)
+latest_price_usd = "$" + "{0:,.2f}".format(float(data.iloc[0]['Closing Price'])) #<—— Taken from Groceries Exercise
+# print(latest_price_usd)
 
 
 #
