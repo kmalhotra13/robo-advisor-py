@@ -156,6 +156,7 @@ ctime = ctime.strftime("%I:%M%P")
 #
 
 timehigh = max(high_price)
+timehigh = "$" + "{0:,.2f}".format(timehigh)
 print(timehigh)
 
 # TODO: write response data to a CSV file
