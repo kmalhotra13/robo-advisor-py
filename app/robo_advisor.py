@@ -9,16 +9,21 @@ load_dotenv() # loads environment variables set in a ".env" file, including the 
 api_key = os.environ.get("ALPHAVANTAGE_API_KEY")
 print("API KEY: " + api_key)
 
-symbol = input("Please specify a stock symbol: ") 
+symbol = ""
 
-if len(symbol) < 1:
-	print("Oops, we didn't get your symbol. Mind trying again?")
+def getsymbol(): # function to include validation into the system.
+	global symbol
 	symbol = input("Please specify a stock symbol: ") 
-elif len(symbol) > 6: # Per a quick Google, 6 seems to be the max length of a ticker: https://www.quora.com/Whats-the-shortest-and-the-longest-that-a-companys-ticker-can-be-on-a-stock-market-exchange
-		print("Hmm...that symbol seems a bit long...mind trying again?")
-		symbol = input("Please specify a stock symbol: ")
-else: print("Thanks! Let's see what we can do...")
 
+	if len(symbol) < 1:
+		print("Oops, we didn't get your symbol. Mind trying again?")
+		getsymbol() 
+	elif len(symbol) > 6: # Per a quick Google, 6 seems to be the max length of a ticker: https://www.quora.com/Whats-the-shortest-and-the-longest-that-a-companys-ticker-can-be-on-a-stock-market-exchange
+			print("Hmm...that symbol seems a bit long...mind trying again?")
+			getsymbol()
+	else: print("Thanks! Let's see what we can do...")
+
+getsymbol()
 # see: https://www.alphavantage.co/documentation/#daily (or a different endpoint, as desired)
 # TODO: assemble the request url to get daily data for the given stock symbol...
 
