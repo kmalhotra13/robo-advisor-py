@@ -1,3 +1,8 @@
+
+# Robo Advisor and Portfolio Manager
+### Created 2/25/2019 by Kuran P. Malhotra
+### Starter Repo from https://github.com/prof-rossetti/georgetown-opim-243-201901/blob/master/projects/robo-advisor.md
+
 from dotenv import load_dotenv
 import json
 import os
@@ -24,6 +29,7 @@ def getsymbol(): # function to include validation into the system.
 	else: print("Thanks! Let's see what we can do...")
 
 getsymbol()
+
 # see: https://www.alphavantage.co/documentation/#daily (or a different endpoint, as desired)
 # TODO: assemble the request url to get daily data for the given stock symbol...
 

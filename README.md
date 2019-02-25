@@ -1,7 +1,5 @@
 # "Robo Advisor" Project
 
-A starter repository for the ["Robo Advisor" project](https://github.com/prof-rossetti/georgetown-opim-243-201901/blob/master/projects/robo-advisor.md).
-
 Issues requests to the [AlphaVantage Stock Market API](https://www.alphavantage.co/) in order to provide automated stock or cryptocurrency trading recommendations.
 
 ## Prerequisites
