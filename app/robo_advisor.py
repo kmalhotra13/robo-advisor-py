@@ -63,6 +63,7 @@ def convert_month(month): # Taken from Exec Dashboard — save a variable calle
 		month_name = "November"
 	elif month == 12:
 		month_name = "December"
+	return month_name
 
 print(line)
 print("")
@@ -137,18 +138,15 @@ year = f[0] + f[1] + f[2] + f[3]
 year = (int(year))
 monthnum = f[5] + f[6]
 monthnum = (int(monthnum))
-month_name = str
-convert_month(monthnum)
-
-print(month_name)
+latest_month_name = convert_month(monthnum)
 
 # Get current time:
-
 now = dt.datetime.now()
 cyear = now.year
-cmonth = now.month
+cmonth = int(now.month)
+cmonth_name = convert_month(cmonth)
 
-print(cmonth)
+
 
 #
 # INFO OUTPUTS
