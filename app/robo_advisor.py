@@ -52,7 +52,16 @@ if "Error" in response.text:
 # print("RESPONSE STATUS: " + str(response.status_code))
 # print("RESPONSE TEXT: " + response.text)
 
+#Turn JSON into readable format:
+
 parsed_response = response.json()
+
+time = []
+open_price = []
+high_price = []
+low_price = []
+close_price = []
+volume = []
 
 
 # TODO: further parse the JSON response...
