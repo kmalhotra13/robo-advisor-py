@@ -127,8 +127,19 @@ data = pd.DataFrame({
 latest_price_usd = "$" + "{0:,.2f}".format(float(data.iloc[0]['Closing Price'])) #<—— Taken from Groceries Exercise
 # print(latest_price_usd)
 
+latest_time = time[0]
+print(latest_time)
 
+#Parse date, taken from exec dashboard
 
+f = list(filename.upper())
+year = f[6] + f[7] + f[8] + f[9]
+year = (int(year))
+month = f[10] + f[11]
+month = (int(month))
+month_name = str
+
+convert_month
 
 
 #
