@@ -31,9 +31,19 @@ def getsymbol(): # function to include validation into the system.
 getsymbol()
 
 # see: https://www.alphavantage.co/documentation/#daily (or a different endpoint, as desired)
-# TODO: assemble the request url to get daily data for the given stock symbol...
+# Assemble URL
+
+request_url = f"https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol={symbol}&apikey={api_key}"
+print(request_url)
 
 # TODO: use the "requests" package to issue a "GET" request to the specified url, and store the JSON response in a variable...
+
+response = requests.get(request_url)
+print("RESPONSE STATUS: " + str(response.status_code))
+print("RESPONSE TEXT: " + response.text)
+
+parsed_response = json.loads(response.text)
+
 
 # TODO: further parse the JSON response...
 
