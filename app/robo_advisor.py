@@ -28,8 +28,11 @@ def getsymbol(): # function to include validation into the system.
 			getsymbol()
 	else: print("Thanks! Let's see what we can do...")
 
+	symbol = symbol.upper()
+
 getsymbol()
 
+print(symbol)
 # see: https://www.alphavantage.co/documentation/#daily (or a different endpoint, as desired)
 # Assemble URL
 
