@@ -89,13 +89,16 @@ data = pd.Dataframe({
 	})
 
 # TODO: traverse the nested response data structure to find the latest closing price and other values of interest...
-latest_price_usd = "$100,000.00"
+latest_price_usd = 
+totalPrice_usd = "{0:,.2f}".format(totalPrice) #<—— Taken from Groceries Exercise
+
 
 #
 # INFO OUTPUTS
 #
 
 # TODO: write response data to a CSV file
+
 
 # TODO: further revise the example outputs below to reflect real information
 print("-----------------")
