@@ -13,24 +13,32 @@ load_dotenv() # loads environment variables set in a ".env" file, including the 
 
 # see: https://www.alphavantage.co/support/#api-key
 api_key = os.environ.get("ALPHAVANTAGE_API_KEY")
-print("API KEY: " + api_key)
+# print("API KEY: " + api_key)
 
+line = "=" * 50
 symbol = ""
 
 def getsymbol(): # function to include validation into the system.
 	global symbol
-	symbol = input("Please specify a stock symbol: ") 
-
+	print(line)
+	symbol = input("Please specify a stock symbol (or 'exit' to exit): ") 
+	print(line)
+	if symbol == "exit":
+		exit()
 	if len(symbol) < 1:
 		print("Oops, we didn't get your symbol. Mind trying again?")
 		getsymbol() 
 	elif len(symbol) > 6: # Per a quick Google, 6 seems to be the max length of a ticker: https://www.quora.com/Whats-the-shortest-and-the-longest-that-a-companys-ticker-can-be-on-a-stock-market-exchange
-			print("Hmm...that symbol seems a bit long...mind trying again?")
-			getsymbol()
+		print("Hmm...that symbol seems a bit long...mind trying again?")
+		getsymbol()
 	else: print("Thanks! Let's see what we can do...")
 
 	symbol = symbol.upper()
 
+print(line)
+print("")
+print("Welcome to the Robo Advisor Portfolio Manager.")
+print("")
 getsymbol()
 
 # see: https://www.alphavantage.co/documentation/#daily (or a different endpoint, as desired)
@@ -79,7 +87,7 @@ for k, v in parsed_response['Time Series (Daily)'].items():
 
 # Make the json easier via a data frame:
 
-data = pd.Dataframe({
+data = pd.DataFrame({
 	'Time':time,
 	'Opening Price': open_price,
 	'High Price': high_price,
@@ -89,7 +97,8 @@ data = pd.Dataframe({
 	})
 
 # TODO: traverse the nested response data structure to find the latest closing price and other values of interest...
-latest_price_usd = "{0:,.2f}".format(totalPrice) #<—— Taken from Groceries Exercise
+latest_price_usd = "{0:,.2f}".format(float(data.iloc[0]['Closing Price'])) #<—— Taken from Groceries Exercise
+print(latest_price_usd)
 
 
 #
