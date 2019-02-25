@@ -36,7 +36,7 @@ getsymbol()
 # see: https://www.alphavantage.co/documentation/#daily (or a different endpoint, as desired)
 # Assemble URL
 
-request_url = f"https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol={symbol}&apikey={api_key}"
+request_url = f"https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol={symbol}&outputsize=compact&apikey={api_key}"
 print(request_url)
 
 # TODO: use the "requests" package to issue a "GET" request to the specified url, and store the JSON response in a variable...
@@ -63,13 +63,15 @@ low_price = []
 close_price = []
 volume = []
 
-for k, v in parsed_response['Time Series']:
+for k, v in parsed_response['Time Series (Daily)']:
 	time.append(k)
-	open_price.append(value['open'])
-	high_price.append(value['high'])
-	low_price.append(value['low'])
-	close_price.append(value['close'])
-	volume.append(value['volume'])
+	open_price.append(value['1. open'])
+	high_price.append(value['2. high'])
+	low_price.append(value['3. low'])
+	close_price.append(value['4. close'])
+	volume.append(value['5. volume'])
+
+print(time, open_price, high_price, low_price, close_price, volume)
 
 
 # TODO: further parse the JSON response...
