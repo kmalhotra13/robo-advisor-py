@@ -35,6 +35,33 @@ def getsymbol(): # function to include validation into the system.
 
 	symbol = symbol.upper()
 
+def convert_month(): # Taken from Exec Dashboard — save a variable called month with an int and run convert_month()
+	global month_name
+	if month == 1:
+		month_name = "January"
+	elif month == 2:
+		month_name = "February"
+	elif month == 3:
+		month_name = "March"
+	elif month == 4:
+		month_name = "April"
+	elif month == 5:
+		month_name = "May"
+	elif month == 6:
+		month_name = "June"
+	elif month == 7:
+		month_name = "July"
+	elif month == 8:
+		month_name = "August"
+	elif month == 9:
+		month_name = "September"
+	elif month == 10:
+		month_name = "October"
+	elif month == 11:
+		month_name = "November"
+	elif month == 12:
+		month_name = "December"
+
 print(line)
 print("")
 print("Welcome to the Robo Advisor Portfolio Manager.")
@@ -99,6 +126,9 @@ data = pd.DataFrame({
 # TODO: traverse the nested response data structure to find the latest closing price and other values of interest...
 latest_price_usd = "$" + "{0:,.2f}".format(float(data.iloc[0]['Closing Price'])) #<—— Taken from Groceries Exercise
 # print(latest_price_usd)
+
+
+
 
 
 #
