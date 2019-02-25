@@ -7,6 +7,7 @@ from dotenv import load_dotenv
 import json
 import os
 import requests
+import pandas as pd
 
 load_dotenv() # loads environment variables set in a ".env" file, including the value of the ALPHAVANTAGE_API_KEY variable
 
@@ -42,10 +43,21 @@ print(request_url)
 
 response = requests.get(request_url)
 
-print("RESPONSE STATUS: " + str(response.status_code))
-print("RESPONSE TEXT: " + response.text)
+# Validate a valid response given improper response codes:
+
+if "Error" in response.text:
+	print("Hmm. Something went wrong there...try again later!")
+	exit()
+
+# print("RESPONSE STATUS: " + str(response.status_code))
+# print("RESPONSE TEXT: " + response.text)
 
 parsed_response = json.loads(response.text)
+print(parsed_response)
+print(type(parsed_response))
+
+for day in parsed_response:
+
 
 
 # TODO: further parse the JSON response...
