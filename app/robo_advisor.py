@@ -3,7 +3,7 @@
 ### Created 2/25/2019 by Kuran P. Malhotra
 ### Starter Repo from https://github.com/prof-rossetti/georgetown-opim-243-201901/blob/master/projects/robo-advisor.md
 
-import datetime
+import datetime as dt
 from dotenv import load_dotenv
 import json
 import os
@@ -37,7 +37,7 @@ def getsymbol(): # function to include validation into the system.
 
 	symbol = symbol.upper()
 
-def convert_month(): # Taken from Exec Dashboard — save a variable called month with an int and run convert_month()
+def convert_month(month): # Taken from Exec Dashboard — save a variable called month with an int and run convert_month()
 	global month_name
 	if month == 1:
 		month_name = "January"
@@ -135,10 +135,20 @@ latest_time = time[0]
 f = list(latest_time.upper())
 year = f[0] + f[1] + f[2] + f[3]
 year = (int(year))
-month = f[5] + f[6]
-month = (int(month))
+monthnum = f[5] + f[6]
+monthnum = (int(monthnum))
 month_name = str
-convert_month()
+convert_month(monthnum)
+
+print(month_name)
+
+# Get current time:
+
+now = dt.datetime.now()
+cyear = now.year
+cmonth = now.month
+
+print(cmonth)
 
 #
 # INFO OUTPUTS
