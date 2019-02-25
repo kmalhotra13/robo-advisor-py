@@ -138,11 +138,10 @@ year = (int(year))
 monthnum = f[5] + f[6]
 day = f[8] + f[9]
 day = int(day)
-print(day)
 monthnum = (int(monthnum))
 latest_month_name = convert_month(monthnum)
 
-# Get current time: (Help from: https://docs.python.org/2/library/datetime.html)
+# Get current time (Help from: https://docs.python.org/2/library/datetime.html):
 now = dt.datetime.now()
 cyear = now.year
 cmonth = int(now.month)
@@ -151,16 +150,22 @@ cday = now.day
 ctime = dt.datetime.time(dt.datetime.now())
 ctime = ctime.strftime("%I:%M%P")
 
-#
-# INFO OUTPUTS
-#
-
-timehigh = max(high_price)
+# Get the 100-day high and low prices:
+timehigh = float(max(high_price))
 timehigh = "$" + "{0:,.2f}".format(timehigh)
-print(timehigh)
 
-# TODO: write response data to a CSV file
+timelow = float(min(low_price))
+timelow = "$" + "{0:,.2f}".format(timelow)
 
+# Save data to CSV, with help from class notes + Matt + this site: https://stackoverflow.com/questions/5137497/find-current-directory-and-files-directory
+cwd = os.getcwd()
+print(cwd)
+lencwd = len(cwd)
+pathlen = lencwd - 3
+path = cwd[0:pathlen] + "data/"
+print(path)
+
+data.to_csv(path + str(cyear) + "-" + str("{0:02d}".format(cmonth)) + " " + symbol + ".csv")
 
 # TODO: further revise the example outputs below to reflect real information
 print("-----------------")
@@ -169,8 +174,8 @@ print(f"RUN AT: {ctime} on {cmonth_name} {cday}, {cyear}")
 print("-----------------")
 print(f"LATEST DAY OF AVAILABLE DATA: {latest_month_name} {day}, {year}")
 print(f"LATEST DAILY CLOSING PRICE: {latest_price_usd}")
-print("RECENT HIGH: $101,000.00")
-print("RECENT LOW: $99,000.00")
+print(f"RECENT HIGH: {timehigh}")
+print(f"RECENT LOW: {timelow}")
 print("-----------------")
 print("RECOMMENDATION: Buy!")
 print("RECOMMENDATION REASON: Because the latest closing price is within threshold XYZ etc., etc. and this fits within your risk tolerance etc., etc.")
