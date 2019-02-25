@@ -65,11 +65,11 @@ volume = []
 
 for k, v in parsed_response['Time Series']:
 	time.append(k)
-	open_price.append(value[''])
-	high_price.append(value[''])
-	low_price.append(value[''])
-	close_price.append(value[''])
-	volume.append(value[''])
+	open_price.append(value['open'])
+	high_price.append(value['high'])
+	low_price.append(value['low'])
+	close_price.append(value['close'])
+	volume.append(value['volume'])
 
 
 # TODO: further parse the JSON response...
