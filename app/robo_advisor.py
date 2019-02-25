@@ -14,9 +14,10 @@ symbol = input("Please specify a stock symbol: ")
 if len(symbol) < 1:
 	print("Oops, we didn't get your symbol. Mind trying again?")
 	symbol = input("Please specify a stock symbol: ") 
-else:
-	if len(symbol) > 6: # Per 
+elif len(symbol) > 6: # Per a quick Google, 6 seems to be the max length of a ticker: https://www.quora.com/Whats-the-shortest-and-the-longest-that-a-companys-ticker-can-be-on-a-stock-market-exchange
 		print("Hmm...that symbol seems a bit long...mind trying again?")
+		symbol = input("Please specify a stock symbol: ")
+else: print("Thanks! Let's see what we can do...")
 
 # see: https://www.alphavantage.co/documentation/#daily (or a different endpoint, as desired)
 # TODO: assemble the request url to get daily data for the given stock symbol...
