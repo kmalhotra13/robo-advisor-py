@@ -3,11 +3,13 @@
 ### Created 2/25/2019 by Kuran P. Malhotra
 ### Starter Repo from https://github.com/prof-rossetti/georgetown-opim-243-201901/blob/master/projects/robo-advisor.md
 
+import datetime
 from dotenv import load_dotenv
 import json
 import os
-import requests
 import pandas as pd
+import requests
+
 
 load_dotenv() # loads environment variables set in a ".env" file, including the value of the ALPHAVANTAGE_API_KEY variable
 
@@ -132,15 +134,16 @@ print(latest_time)
 
 #Parse date, taken from exec dashboard
 
-f = list(filename.upper())
-year = f[6] + f[7] + f[8] + f[9]
+f = list(latest_time.upper())
+year = f[0] + f[1] + f[2] + f[3]
 year = (int(year))
-month = f[10] + f[11]
+month = f[5] + f[6]
 month = (int(month))
 month_name = str
 
-convert_month
+convert_month()
 
+# print(str(year) + month_name)
 
 #
 # INFO OUTPUTS
