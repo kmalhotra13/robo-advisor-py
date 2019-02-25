@@ -130,8 +130,7 @@ data = pd.DataFrame({
 
 latest_price_usd = "$" + "{0:,.2f}".format(float(data.iloc[0]['Closing Price'])) #<—— Taken from Groceries Exercise
 
-#Parse lastest date, taken from exec dashboard:
-
+#Parse latest date, taken from exec dashboard:
 latest_time = time[0]
 f = list(latest_time.upper())
 year = f[0] + f[1] + f[2] + f[3]
