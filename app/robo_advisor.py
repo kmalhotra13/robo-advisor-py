@@ -11,7 +11,12 @@ print("API KEY: " + api_key)
 
 symbol = input("Please specify a stock symbol: ") 
 
-print(len(symbol))
+if len(symbol) < 1:
+	print("Oops, we didn't get your symbol. Mind trying again?")
+	symbol = input("Please specify a stock symbol: ") 
+else:
+	if len(symbol) > 6: # Per 
+		print("Hmm...that symbol seems a bit long...mind trying again?")
 
 # see: https://www.alphavantage.co/documentation/#daily (or a different endpoint, as desired)
 # TODO: assemble the request url to get daily data for the given stock symbol...
