@@ -136,17 +136,20 @@ f = list(latest_time.upper())
 year = f[0] + f[1] + f[2] + f[3]
 year = (int(year))
 monthnum = f[5] + f[6]
+day = f[8] + f[9]
+day = int(day)
+print(day)
 monthnum = (int(monthnum))
 latest_month_name = convert_month(monthnum)
 
-# Get current time:
+# Get current time: (Help from: https://docs.python.org/2/library/datetime.html)
 now = dt.datetime.now()
 cyear = now.year
 cmonth = int(now.month)
 cmonth_name = convert_month(cmonth)
 cday = now.day
-ctime = dt.datetime.time
-print(ctime)
+ctime = dt.datetime.time(dt.datetime.now())
+ctime = ctime.strftime("%I:%M%P")
 
 #
 # INFO OUTPUTS
@@ -158,9 +161,9 @@ print(ctime)
 # TODO: further revise the example outputs below to reflect real information
 print("-----------------")
 print(f"STOCK SYMBOL: {symbol}")
-print("RUN AT: 11:52pm on June 5th, 2018")
+print(f"RUN AT: {ctime} on {cmonth_name} {cday}, {cyear}")
 print("-----------------")
-print("LATEST DAY OF AVAILABLE DATA: June 4th, 2018")
+# print(f"LATEST DAY OF AVAILABLE DATA: {month}")
 print(f"LATEST DAILY CLOSING PRICE: {latest_price_usd}")
 print("RECENT HIGH: $101,000.00")
 print("RECENT LOW: $99,000.00")
