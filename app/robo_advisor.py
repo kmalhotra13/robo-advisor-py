@@ -144,8 +144,9 @@ now = dt.datetime.now()
 cyear = now.year
 cmonth = int(now.month)
 cmonth_name = convert_month(cmonth)
-
-
+cday = now.day
+ctime = now.time
+print(ctime.hour)
 
 #
 # INFO OUTPUTS
