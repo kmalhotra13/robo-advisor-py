@@ -126,24 +126,19 @@ data = pd.DataFrame({
 	})
 
 # TODO: traverse the nested response data structure to find the latest closing price and other values of interest...
+
 latest_price_usd = "$" + "{0:,.2f}".format(float(data.iloc[0]['Closing Price'])) #<—— Taken from Groceries Exercise
-# print(latest_price_usd)
+
+#Parse lastest date, taken from exec dashboard:
 
 latest_time = time[0]
-print(latest_time)
-
-#Parse date, taken from exec dashboard
-
 f = list(latest_time.upper())
 year = f[0] + f[1] + f[2] + f[3]
 year = (int(year))
 month = f[5] + f[6]
 month = (int(month))
 month_name = str
-
 convert_month()
-
-# print(str(year) + month_name)
 
 #
 # INFO OUTPUTS
