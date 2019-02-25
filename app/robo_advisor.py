@@ -52,12 +52,7 @@ if "Error" in response.text:
 # print("RESPONSE STATUS: " + str(response.status_code))
 # print("RESPONSE TEXT: " + response.text)
 
-parsed_response = json.loads(response.text)
-print(parsed_response)
-print(type(parsed_response))
-
-for day in parsed_response:
-
+parsed_response = response.json()
 
 
 # TODO: further parse the JSON response...
