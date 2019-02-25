@@ -39,6 +39,7 @@ print(request_url)
 # TODO: use the "requests" package to issue a "GET" request to the specified url, and store the JSON response in a variable...
 
 response = requests.get(request_url)
+
 print("RESPONSE STATUS: " + str(response.status_code))
 print("RESPONSE TEXT: " + response.text)
 
