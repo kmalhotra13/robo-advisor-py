@@ -63,6 +63,9 @@ low_price = []
 close_price = []
 volume = []
 
+for x, k in enumerate(dataPrice):
+	plt.text(k , x , "   ${0:,.2f}".format(k))
+
 
 # TODO: further parse the JSON response...
 
