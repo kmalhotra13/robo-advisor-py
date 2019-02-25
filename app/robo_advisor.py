@@ -9,6 +9,7 @@ import json
 import os
 import pandas as pd
 import requests
+import statistics as stat
 
 
 load_dotenv() # loads environment variables set in a ".env" file, including the value of the ALPHAVANTAGE_API_KEY variable
@@ -105,10 +106,10 @@ volume = []
 
 for k, v in parsed_response['Time Series (Daily)'].items():
 	time.append(k)
-	open_price.append(v['1. open'])
-	high_price.append(v['2. high'])
-	low_price.append(v['3. low'])
-	close_price.append(v['4. close'])
+	open_price.append(float(v['1. open']))
+	high_price.append(float(v['2. high']))
+	low_price.append(float(v['3. low']))
+	close_price.append(float(v['4. close']))
 	volume.append(v['5. volume'])
 
 # print(time, open_price, high_price, low_price, close_price, volume)
@@ -167,6 +168,12 @@ print(path)
 
 data.to_csv(path + str(cyear) + "-" + str("{0:02d}".format(cmonth)) + " " + symbol + ".csv")
 
+# Recomendation engine:
+
+sigma = stat.stdev(close_price)
+print(sigma)
+
+
 # TODO: further revise the example outputs below to reflect real information
 print("-----------------")
 print(f"STOCK SYMBOL: {symbol}")
@@ -174,8 +181,8 @@ print(f"RUN AT: {ctime} on {cmonth_name} {cday}, {cyear}")
 print("-----------------")
 print(f"LATEST DAY OF AVAILABLE DATA: {latest_month_name} {day}, {year}")
 print(f"LATEST DAILY CLOSING PRICE: {latest_price_usd}")
-print(f"RECENT HIGH: {timehigh}")
-print(f"RECENT LOW: {timelow}")
+print(f"100 DAY HIGH: {timehigh}")
+print(f"100 DAY LOW: {timelow}")
 print("-----------------")
 print("RECOMMENDATION: Buy!")
 print("RECOMMENDATION REASON: Because the latest closing price is within threshold XYZ etc., etc. and this fits within your risk tolerance etc., etc.")
