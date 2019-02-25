@@ -155,6 +155,9 @@ ctime = ctime.strftime("%I:%M%P")
 # INFO OUTPUTS
 #
 
+timehigh = max(high_price)
+print(timehigh)
+
 # TODO: write response data to a CSV file
 
 
@@ -163,7 +166,7 @@ print("-----------------")
 print(f"STOCK SYMBOL: {symbol}")
 print(f"RUN AT: {ctime} on {cmonth_name} {cday}, {cyear}")
 print("-----------------")
-# print(f"LATEST DAY OF AVAILABLE DATA: {month}")
+print(f"LATEST DAY OF AVAILABLE DATA: {latest_month_name} {day}, {year}")
 print(f"LATEST DAILY CLOSING PRICE: {latest_price_usd}")
 print("RECENT HIGH: $101,000.00")
 print("RECENT LOW: $99,000.00")
