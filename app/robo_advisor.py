@@ -63,18 +63,30 @@ low_price = []
 close_price = []
 volume = []
 
-for k, v in parsed_response['Time Series (Daily)']:
+# Got some help from Hiep here:
+
+for k, v in parsed_response['Time Series (Daily)'].items():
 	time.append(k)
-	open_price.append(value['1. open'])
-	high_price.append(value['2. high'])
-	low_price.append(value['3. low'])
-	close_price.append(value['4. close'])
-	volume.append(value['5. volume'])
+	open_price.append(v['1. open'])
+	high_price.append(v['2. high'])
+	low_price.append(v['3. low'])
+	close_price.append(v['4. close'])
+	volume.append(v['5. volume'])
 
-print(time, open_price, high_price, low_price, close_price, volume)
-
+# print(time, open_price, high_price, low_price, close_price, volume)
 
 # TODO: further parse the JSON response...
+
+# Make the json easier via a data frame:
+
+data = pd.Dataframe({
+	'Time':time,
+	'Opening Price': open_price,
+	'High Price': high_price,
+	'Low Price': low_price,
+	'Closing Price': close_price,
+	'Volume': volume
+	})
 
 # TODO: traverse the nested response data structure to find the latest closing price and other values of interest...
 latest_price_usd = "$100,000.00"
