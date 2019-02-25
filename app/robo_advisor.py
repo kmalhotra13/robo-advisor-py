@@ -32,7 +32,6 @@ def getsymbol(): # function to include validation into the system.
 
 getsymbol()
 
-print(symbol)
 # see: https://www.alphavantage.co/documentation/#daily (or a different endpoint, as desired)
 # Assemble URL
 
