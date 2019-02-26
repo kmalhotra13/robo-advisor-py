@@ -69,8 +69,6 @@ def getsymbol(): # function to include validation into the system.
 	global settings_binary
 	global symbol
 	symbol = input("Please specify a stock symbol ('settings' for settings or 'exit' to exit): ") 
-	print(line)
-	settings_binary = int(0)
 	if symbol == "exit":
 		exit()
 	if symbol == "settings":
@@ -83,7 +81,6 @@ def getsymbol(): # function to include validation into the system.
 	elif len(symbol) > 6: # Per a quick Google, 6 seems to be the max length of a ticker: https://www.quora.com/Whats-the-shortest-and-the-longest-that-a-companys-ticker-can-be-on-a-stock-market-exchange
 		print("Hmm...that symbol seems a bit long...mind trying again?")
 		getsymbol()
-	else: print("Thanks! Let's see what we can do...")
 	
 	if settings_binary == int(0): 
 		large_cap_index = "SPY"
@@ -107,6 +104,7 @@ def define_stock(): # get more information about the stock to determine appropri
 		index_ticker = mid_cap_index
 	elif stock_class == 3:
 		index_ticker = small_cap_index
+	print("Thanks! Let's see what we can find...")
 
 def convert_month(month): # Taken from Exec Dashboard — save a variable called month with an int and run convert_month()
 	global month_name
@@ -142,6 +140,7 @@ print("Welcome to the Robo Advisor Portfolio Manager.")
 print("")
 getsymbol()
 define_stock()
+print(line)
 
 # see: https://www.alphavantage.co/documentation/#daily (or a different endpoint, as desired)
 # Assemble URL
@@ -240,12 +239,9 @@ data.to_csv(path + str(cyear) + "-" + str("{0:02d}".format(cmonth)) + " " + symb
 # Pull market data based on stock market capitalization
 
 index_url = f"https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol={index_ticker}&outputsize=compact&apikey={api_key}"
-
-print(index_url)
-
 index_response = requests.get(index_url)
 
-
+# Validate index selections from settings function + ensure proper data
 
 if "Error" in index_response.text:
 	large_cap_index = "SPY"
@@ -255,6 +251,31 @@ if "Error" in index_response.text:
 	define_stock()
 	index_url = f"https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol={index_ticker}&outputsize=compact&apikey={api_key}"
 	index_response = requests.get(index_url)
+
+parsed_index_data = index_response.json()
+
+index_time = []
+index_open_price = []
+index_high_price = []
+index_low_price = []
+index_close_price = []
+index_volume = []
+
+for k, v in parsed_index_data['Time Series (Daily)'].items():
+	index_time.append(k)
+	index_open_price.append(float(v['1. open']))
+	index_high_price.append(float(v['2. high']))
+	index_low_price.append(float(v['3. low']))
+	index_close_price.append(float(v['4. close']))
+	index_volume.append(v['5. volume'])
+
+index_sigma = stat.stdev(index_close_price)
+index_xbar = stat.mean(index_close_price)
+index_coeff = index_sigma/index_xbar
+
+print(index_coeff)
+
+stock_sigma = stat.stdev(close_price)
 
 # Recommendation engine:
 
@@ -270,6 +291,7 @@ if "Error" in index_response.text:
 # TODO: further revise the example outputs below to reflect real information
 print("-----------------")
 print(f"STOCK SYMBOL: {symbol}")
+print(f"BENCHMARKED AGAINST: {index_ticker.upper()}")
 print(f"RUN AT: {ctime} on {cmonth_name} {cday}, {cyear}")
 print("-----------------")
 print(f"LATEST DAY OF AVAILABLE DATA: {latest_month_name} {day}, {year}")
