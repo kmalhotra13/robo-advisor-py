@@ -240,8 +240,21 @@ data.to_csv(path + str(cyear) + "-" + str("{0:02d}".format(cmonth)) + " " + symb
 # Pull market data based on stock market capitalization
 
 index_url = f"https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol={index_ticker}&outputsize=compact&apikey={api_key}"
+
 print(index_url)
 
+index_response = requests.get(index_url)
+
+
+
+if "Error" in index_response.text:
+	large_cap_index = "SPY"
+	mid_cap_index = "RMCCX"
+	small_cap_index = "^RUT"
+	print("We ran into an error with your benchmark and unfortunately had to utilize the default benchmarks. Please redefine your stock.")
+	define_stock()
+	index_url = f"https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol={index_ticker}&outputsize=compact&apikey={api_key}"
+	index_response = requests.get(index_url)
 
 # Recommendation engine:
 
