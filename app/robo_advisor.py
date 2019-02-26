@@ -51,11 +51,17 @@ def settings(): # Functionality to change index benchmarks
 		small_cap_index = "^RUT"
 	elif settings_selection == 1:
 		large_cap_index = input("Please input a valid Large Cap index's ticker symbol: ")
+		mid_cap_index = "RMCCX"
+		small_cap_index = ""
 		print(f"Setting saved: {large_cap_index} is the new Large Cap benchmark")
 	elif settings_selection == 2:
+		large_cap_index = "SPY"
 		mid_cap_index = input("Please input a valid Mid Cap index's ticker symbol: ")
+		small_cap_index = ""
 		print(f"Setting saved: {mid_cap_index} is the new Mid Cap benchmark")
 	elif settings_selection == 3:
+		large_cap_index = "SPY"
+		mid_cap_index = "RMCCX"
 		small_cap_index = input("Please input a valid Small Cap index's ticker symbol: ")
 		print(f"Setting saved: {small_cap_index} is the new Small Cap benchmark")
 	else:
@@ -138,6 +144,7 @@ print(line)
 print("")
 print("Welcome to the Robo Advisor Portfolio Manager.")
 print("")
+print(line)
 getsymbol()
 define_stock()
 print(line)
@@ -285,34 +292,36 @@ index_sharpe = index_xbar / index_sigma
 index_sharpe_str = str("{0:,.2f}".format(index_sharpe))
 
 
-# Recommendation engine:
+# Stock Calculations:
 
 daily_delta = []
 
 for n in range(0,len(close_price)-1):
 	daily_delta.append((close_price[n]-close_price[n+1])/(close_price[n+1]))
 
-	
 sigma = stat.stdev(daily_delta)
 xbar = stat.mean(daily_delta)
 coeff = sigma/xbar
 sharpe = xbar / sigma
 sharpe_str = str("{0:,.2f}".format(sharpe))
 
+# Recommendation Engine:
+
 if sharpe > index_sharpe:
 	rec_sum = "Buy!"
-	rec_exp = f"The Sharpe ratio of {symbol} ({sharpe_str}) is greater than the Sharpe ratio of the benchmark {index_ticker} ({index_sharpe_str})." 
+	rec_exp = f"The Sharpe ratio of {symbol} is greater than the Sharpe ratio of the benchmark {index_ticker}." 
 	rec_exp2 = f"This means that you can gain equivalent returns with less risk by investing in {symbol}."
 elif sharpe < index_sharpe:
 	rec_sum = "Sell!"
-	rec_exp = f"The Sharpe ratio of {symbol} ({sharpe_str}) is less than the Sharpe ratio of the benchmark {index_ticker} ({index_sharpe_str})." 
+	rec_exp = f"The Sharpe ratio of {symbol} is less than the Sharpe ratio of the benchmark {index_ticker}." 
 	rec_exp2 = f"This means that you can gain equivalent returns with less risk by investing in {index_ticker}."
 elif sharpe == index_sharpe:
 	rec_sum = "Hold!"
-	rec_exp = f"The Sharpe ratio of {symbol} ({sharpe_str}) is equal to the Sharpe ratio of the benchmark {index_ticker} ({index_sharpe_str})." 
+	rec_exp = f"The Sharpe ratio of {symbol} is equal to the Sharpe ratio of the benchmark {index_ticker}." 
 	rec_exp2 = f"This means that you can gain equivalent returns with equivalent risk by investing in either."
 
-# TODO: further revise the example outputs below to reflect real information
+# Final Outputs:
+
 print(line)
 print(f"STOCK SYMBOL: {symbol}")
 print(f"BENCHMARKED AGAINST: {index_ticker.upper()}")
