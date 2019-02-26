@@ -286,7 +286,18 @@ xbar = stat.mean(close_price)
 coeff = sigma/xbar
 sharpe = xbar / sigma
 
-if sharpe >= index_sharpe:
+if sharpe > index_sharpe:
+	rec_sum = "Buy!"
+	rec_exp = f"The Sharpe ratio of {symbol} ({str("{0:,.2f}".format(sharpe))}) is greater than the Sharpe ratio of the benchmark {index_ticker} ({str("{0:,.2f}".format(index_sharpe))})" 
+	rec_exp2 = f"This means that you can gain equivalent returns with less risk by investing in {symbol}."
+elif sharpe < index_sharpe:
+	rec_sum = "Sell!"
+	rec_exp = f"The Sharpe ratio of {symbol} ({str("{0:,.2f}".format(sharpe))}) is less than the Sharpe ratio of the benchmark {index_ticker} ({str("{0:,.2f}".format(index_sharpe))})" 
+	rec_exp2 = f"This means that you can gain equivalent returns with less risk by investing in {index_ticker}."
+elif sharpe = index_sharpe:
+	rec_sum = "Hold!"
+	rec_exp = f"The Sharpe ratio of {symbol} ({str("{0:,.2f}".format(sharpe))}) is equal to the Sharpe ratio of the benchmark {index_ticker} ({str("{0:,.2f}".format(index_sharpe))})" 
+	rec_exp2 = f"This means that you can gain equivalent returns with equivalent risk by investing in either."
 
 # TODO: further revise the example outputs below to reflect real information
 print(line)
@@ -299,6 +310,7 @@ print(f"LATEST DAILY CLOSING PRICE: {latest_price_usd}")
 print(f"100 DAY HIGH: {timehigh}")
 print(f"100 DAY LOW: {timelow}")
 print(line)
-print("RECOMMENDATION: Buy!")
-print("RECOMMENDATION REASON: Because the latest closing price is within threshold XYZ etc., etc. and this fits within your risk tolerance etc., etc.")
+print(f"RECOMMENDATION: {rec_sum}")
+print(f"RECOMMENDATION REASON: {rec_exp}")
+print(f"RECOMMENDATION EXPLANATION: {rec_exp2}")
 print(line)
