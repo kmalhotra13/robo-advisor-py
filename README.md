@@ -8,7 +8,7 @@ Issues requests to the [AlphaVantage Stock Market API](https://www.alphavantage.
   + Python 3.7
   + Pip
 
-### Required Python Packages:
+### Required Python Packages & Modules:
 
   + datetime
   + dotenv
