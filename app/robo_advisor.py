@@ -239,9 +239,11 @@ data.to_csv(path + str(cyear) + "-" + str("{0:02d}".format(cmonth)) + " " + symb
 
 # Pull market data based on stock market capitalization
 
-# index_url = f"https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol={index_ticker}&outputsize=compact&apikey={api_key}"
+index_url = f"https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol={index_ticker}&outputsize=compact&apikey={api_key}"
+print(index_url)
 
-# Recomendation engine:
+
+# Recommendation engine:
 
 # xbar = stat.mean(close_price)
 
