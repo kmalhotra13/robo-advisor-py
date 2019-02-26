@@ -49,13 +49,13 @@ def settings(): # Functionality to change index benchmarks
 		small_cap_index = "^RUT"
 	elif settings_selection == 1:
 		large_cap_index = input("Please input a valid Large Cap index's ticker symbol: ")
-		print(f"Setting saved: {large_cap_index} is the new benchmark")
+		print(f"Setting saved: {large_cap_index} is the new Large Cap benchmark")
 	elif settings_selection == 2:
 		mid_cap_index = input("Please input a valid Mid Cap index's ticker symbol: ")
-		print(f"Setting saved: {mid_cap_index} is the new benchmark")
+		print(f"Setting saved: {mid_cap_index} is the new Mid Cap benchmark")
 	elif settings_selection == 3:
 		small_cap_index = input("Please input a valid Small Cap index's ticker symbol: ")
-		print(f"Setting saved: {small_cap_index} is the new benchmark")
+		print(f"Setting saved: {small_cap_index} is the new Small Cap benchmark")
 	else:
 		print("Please choose a valid settings selection.")
 		settings()
@@ -78,6 +78,10 @@ def getsymbol(): # function to include validation into the system.
 		getsymbol()
 	else: print("Thanks! Let's see what we can do...")
 	symbol = symbol.upper()
+	if settings_binary == 0:
+		large_cap_index = "SPY"
+		mid_cap_index = "RMCCX"
+		small_cap_index = "^RUT"		
 ##
 
 def define_stock(): # get more information about the stock to determine appropriate index bechmark
