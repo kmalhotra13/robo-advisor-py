@@ -273,9 +273,10 @@ for k, v in parsed_index_data['Time Series (Daily)'].items():
 
 # Benchmark calculations: 
 
-index_daily_delta = [index_close_price[n] / index_close_price[n-1] - 1 for n in range(1,len(index_close_price))]
+index_daily_delta = []
 
-
+for n in range(0,len(index_close_price)-1):
+	index_daily_delta.append((index_close_price[n]-index_close_price[n+1])/(index_close_price[n+1]))
 
 index_sigma = stat.stdev(index_daily_delta)
 index_xbar = stat.mean(index_daily_delta)
@@ -286,8 +287,10 @@ index_sharpe_str = str("{0:,.2f}".format(index_sharpe))
 
 # Recommendation engine:
 
-daily_delta = [close_price[n] / close_price[n-1] - 1 for n in range(1,len(close_price))]
-print(daily_delta)
+daily_delta = []
+
+for n in range(0,len(close_price)-1):
+	daily_delta.append((close_price[n]-close_price[n+1])/(close_price[n+1]))
 
 	
 sigma = stat.stdev(daily_delta)
