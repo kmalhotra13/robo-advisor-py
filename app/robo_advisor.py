@@ -22,13 +22,45 @@ line = "=" * 50
 symbol = ""
 stock_class = ""
 index_ticker = ""
-large_cap_index = "SPY"
-mid_cap_index = "RMCCX"
-small_cap_index = "^RUT"
+settings_binary = 0
 
+def settings(): # Functionality to change index benchmarks
+	global symbol
+	global large_cap_index
+	global mid_cap_index
+	global small_cap_index
+	large_cap_index = "SPY"
+	mid_cap_index = "RMCCX"
+	small_cap_index = "^RUT"
+	print(line)
+	print("")
+	print("Here, you can choose which benchmarks you wish to use.")
+	print(f"    DEFAULTS: Large Cap: {large_cap_index}, Mid Cap: {mid_cap_index}, Small Cap: {small_cap_index}")
+	print("")
+	print(line)
+	large_cap_index = ""
+	mid_cap_index = ""
+	small_cap_index = ""
+	settings_selection = input("Choose '1' to edit the Large Cap benchmark, '2' for the Mid Cap, and '3' for the Small Cap. Choose '0' to return to the defaults: ")
+	settings_selection = int(settings_selection)
+	if settings_selection == 0:
+		large_cap_index = "SPY"
+		mid_cap_index = "RMCCX"
+		small_cap_index = "^RUT"
+	elif settings_selection == 1:
+		large_cap_index = input("Please input a valid Large Cap index's ticker symbol: ")
+		print(f"Setting saved: {large_cap_index} is the new benchmark")
+	elif settings_selection == 2:
+		mid_cap_index = input("Please input a valid Mid Cap index's ticker symbol: ")
+		print(f"Setting saved: {mid_cap_index} is the new benchmark")
+	elif settings_selection == 3:
+		small_cap_index = input("Please input a valid Small Cap index's ticker symbol: ")
+		print(f"Setting saved: {small_cap_index} is the new benchmark")
+	else:
+		print("Please choose a valid settings selection.")
+		settings()
 
 def getsymbol(): # function to include validation into the system.
-	global symbol
 	print(line)
 	symbol = input("Please specify a stock symbol ('settings' for settings or 'exit' to exit): ") 
 	print(line)
@@ -36,6 +68,7 @@ def getsymbol(): # function to include validation into the system.
 		exit()
 	if symbol == "settings":
 		settings()
+		settings_binary = 1
 		getsymbol()
 	if len(symbol) < 1:
 		print("Oops, we didn't get your symbol. Mind trying again?")
@@ -44,21 +77,21 @@ def getsymbol(): # function to include validation into the system.
 		print("Hmm...that symbol seems a bit long...mind trying again?")
 		getsymbol()
 	else: print("Thanks! Let's see what we can do...")
-
 	symbol = symbol.upper()
+##
 
-def definestock(): # get more information about the stock to determine appropriate index bechmark
+def define_stock(): # get more information about the stock to determine appropriate index bechmark
 	global stock_class
 	global index_ticker
 	stock_class = input("Describe the stock's market capitalization (1=Large Cap, 2=Mid Cap, 3=Small Cap")
 	if stock_class not in [1,2,3]:
 		print("Hmm...we couldn't understand that, please try again.")
-			definestock()
-	if stock_class = 1: 
+		definestock()
+	if stock_class == 1: 
 		index_ticker = large_cap_index
-	elif stock_class = 2:
+	elif stock_class == 2:
 		index_ticker = mid_cap_index
-	elif stock_class = 3:
+	elif stock_class == 3:
 		index_ticker = small_cap_index
 
 def convert_month(month): # Taken from Exec Dashboard — save a variable called month with an int and run convert_month()
@@ -88,31 +121,6 @@ def convert_month(month): # Taken from Exec Dashboard — save a variable calle
 	elif month == 12:
 		month_name = "December"
 	return month_name
-
-def settings(): # Functionality to change index benchmarks
-	print(line)
-	print("")
-	print("Here, you can choose which benchmarks you wish to use.")
-	print(f"    DEFAULTS: Large Cap: {large_cap_index}, Mid Cap: {mid_cap_index}, Small Cap: {small_cap_index}")
-	print("")
-	print(line)
-	settings_selection = input("Choose '1' to edit the Large Cap benchmark, '2' for the Mid Cap, and '3' for the Small Cap. Choose '0' to return to the defaults: ")
-	if settings_selection not in [0,1,2,3]:
-		print("Please choose a valid selection.")
-		settings()
-	elif settings_selection = 0:
-		large_cap_index = "SPY"
-		mid_cap_index = "RMCCX"
-		small_cap_index = "^RUT"
-	elif settings_selection = 1:
-		large_cap_index = input("Please input a valid Large Cap index's ticker symbol: ")
-		print(f"Setting saved: {large_cap_index} is the new benchmark")
-	elif settings_selection = 2:
-		mid_cap_index = input("Please input a valid Mid Cap index's ticker symbol: ")
-		print(f"Setting saved: {mid_cap_index} is the new benchmark")
-	elif settings_selection = 3:
-		small_cap_index = input("Please input a valid Small Cap index's ticker symbol: ")
-		print(f"Setting saved: {small_cap_index} is the new benchmark")
 
 print(line)
 print("")
@@ -217,19 +225,16 @@ data.to_csv(path + str(cyear) + "-" + str("{0:02d}".format(cmonth)) + " " + symb
 
 # Pull market data based on stock market capitalization
 
-index_url = f"https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol={index_ticker}&outputsize=compact&apikey={api_key}"
-
-
+# index_url = f"https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol={index_ticker}&outputsize=compact&apikey={api_key}"
 
 # Recomendation engine:
 
-xbar = stat.mean(close_price)
+# xbar = stat.mean(close_price)
 
-if close_price[0] < xbar:
-	if (xbar - close_price[0]) / xbar >= .20:
-		
-		response_text = "The stock's current closing price is more than 20% below the 100 day average."
-	if (xbar - close_price[0]) / xbar >= .20:
+# if close_price[0] < xbar:
+# 	if (xbar - close_price[0]) / xbar >= .20:
+# 		response_text = "The stock's current closing price is more than 20% below the 100 day average."
+# 	if (xbar - close_price[0]) / xbar >= .20:
 
 
 
