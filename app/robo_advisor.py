@@ -276,31 +276,29 @@ for k, v in parsed_index_data['Time Series (Daily)'].items():
 index_sigma = stat.stdev(index_close_price)
 index_xbar = stat.mean(index_close_price)
 index_coeff = index_sigma/index_xbar
+index_sharpe = index_xbar / index_sigma
 
-stock_sigma = stat.stdev(close_price)
 
 # Recommendation engine:
 
-# xbar = stat.mean(close_price)
+sigma = stat.stdev(close_price)
+xbar = stat.mean(close_price)
+coeff = sigma/xbar
+sharpe = xbar / sigma
 
-# if close_price[0] < xbar:
-# 	if (xbar - close_price[0]) / xbar >= .20:
-# 		response_text = "The stock's current closing price is more than 20% below the 100 day average."
-# 	if (xbar - close_price[0]) / xbar >= .20:
-
-
+if sharpe >= index_sharpe:
 
 # TODO: further revise the example outputs below to reflect real information
-print("-----------------")
+print(line)
 print(f"STOCK SYMBOL: {symbol}")
 print(f"BENCHMARKED AGAINST: {index_ticker.upper()}")
 print(f"RUN AT: {ctime} on {cmonth_name} {cday}, {cyear}")
-print("-----------------")
+print(line)
 print(f"LATEST DAY OF AVAILABLE DATA: {latest_month_name} {day}, {year}")
 print(f"LATEST DAILY CLOSING PRICE: {latest_price_usd}")
 print(f"100 DAY HIGH: {timehigh}")
 print(f"100 DAY LOW: {timelow}")
-print("-----------------")
+print(line)
 print("RECOMMENDATION: Buy!")
 print("RECOMMENDATION REASON: Because the latest closing price is within threshold XYZ etc., etc. and this fits within your risk tolerance etc., etc.")
-print("-----------------")
+print(line)
