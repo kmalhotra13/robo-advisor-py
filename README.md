@@ -48,7 +48,7 @@ Then, the program will generate a recommendation based on the Sharpe ratios of t
 
 -----
 
-_Disclaimer: the creators of this script bear no liability for gains/losses from on investments made based on provided recommendations._
+_**Disclaimer**: the creators of this script bear no liability for gains/losses from on investments made based on provided recommendations._
 
 
 
