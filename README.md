@@ -36,7 +36,7 @@ After that, you will be asked to identify the class of the stock based on the ma
 
 Then, the program will generate a recommendation based on the Sharpe ratios of the stock and the index; if the stock has a higher Sharpe ratio, it will recommend a 'Buy.'
 
-=====
+-----
 
 _Disclaimer: the creators of this script bear no liability for gains/losses from on investments made based on provided recommendations._
 
