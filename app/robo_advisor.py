@@ -19,16 +19,18 @@ api_key = os.environ.get("ALPHAVANTAGE_API_KEY")
 # print("API KEY: " + api_key)
 
 line = "=" * 50
+global symbol
 symbol = ""
 stock_class = ""
 index_ticker = ""
-settings_binary = 0
+settings_binary = int(0)
 
 def settings(): # Functionality to change index benchmarks
-	global symbol
 	global large_cap_index
 	global mid_cap_index
 	global small_cap_index
+	global settings_binary
+	settings_binary = int(1)
 	large_cap_index = "SPY"
 	mid_cap_index = "RMCCX"
 	small_cap_index = "^RUT"
@@ -61,9 +63,14 @@ def settings(): # Functionality to change index benchmarks
 		settings()
 
 def getsymbol(): # function to include validation into the system.
-	print(line)
+	global large_cap_index
+	global mid_cap_index
+	global small_cap_index
+	global settings_binary
+	global symbol
 	symbol = input("Please specify a stock symbol ('settings' for settings or 'exit' to exit): ") 
 	print(line)
+	settings_binary = int(0)
 	if symbol == "exit":
 		exit()
 	if symbol == "settings":
@@ -77,20 +84,23 @@ def getsymbol(): # function to include validation into the system.
 		print("Hmm...that symbol seems a bit long...mind trying again?")
 		getsymbol()
 	else: print("Thanks! Let's see what we can do...")
-	symbol = symbol.upper()
-	if settings_binary == 0:
+	
+	if settings_binary == int(0): 
 		large_cap_index = "SPY"
 		mid_cap_index = "RMCCX"
-		small_cap_index = "^RUT"		
+		small_cap_index = "^RUT"
+	
+	symbol = symbol.upper()
+	
 ##
 
 def define_stock(): # get more information about the stock to determine appropriate index bechmark
 	global stock_class
 	global index_ticker
-	stock_class = input("Describe the stock's market capitalization (1=Large Cap, 2=Mid Cap, 3=Small Cap")
+	stock_class = int(input("Describe the stock's market capitalization (1=Large Cap, 2=Mid Cap, 3=Small Cap): "))
 	if stock_class not in [1,2,3]:
 		print("Hmm...we couldn't understand that, please try again.")
-		definestock()
+		define_stock()
 	if stock_class == 1: 
 		index_ticker = large_cap_index
 	elif stock_class == 2:
@@ -131,7 +141,7 @@ print("")
 print("Welcome to the Robo Advisor Portfolio Manager.")
 print("")
 getsymbol()
-definestock()
+define_stock()
 
 # see: https://www.alphavantage.co/documentation/#daily (or a different endpoint, as desired)
 # Assemble URL
