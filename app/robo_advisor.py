@@ -236,12 +236,12 @@ path = cwd[0:pathlen] + "data/"
 
 data.to_csv(path + str(cyear) + "-" + str("{0:02d}".format(cmonth)) + " " + symbol + ".csv")
 
-# Pull market data based on stock market capitalization
+# Pull market data based on stock market capitalization: 
 
 index_url = f"https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol={index_ticker}&outputsize=compact&apikey={api_key}"
 index_response = requests.get(index_url)
 
-# Validate index selections from settings function + ensure proper data
+# Validate index selections from settings function + ensure proper data: 
 
 if "Error" in index_response.text:
 	large_cap_index = "SPY"
@@ -251,6 +251,8 @@ if "Error" in index_response.text:
 	define_stock()
 	index_url = f"https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol={index_ticker}&outputsize=compact&apikey={api_key}"
 	index_response = requests.get(index_url)
+
+# Read index data into lists: 
 
 parsed_index_data = index_response.json()
 
@@ -269,11 +271,11 @@ for k, v in parsed_index_data['Time Series (Daily)'].items():
 	index_close_price.append(float(v['4. close']))
 	index_volume.append(v['5. volume'])
 
+# Benchmark calculations: 
+
 index_sigma = stat.stdev(index_close_price)
 index_xbar = stat.mean(index_close_price)
 index_coeff = index_sigma/index_xbar
-
-print(index_coeff)
 
 stock_sigma = stat.stdev(close_price)
 
