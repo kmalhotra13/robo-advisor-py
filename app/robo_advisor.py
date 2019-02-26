@@ -20,6 +20,8 @@ api_key = os.environ.get("ALPHAVANTAGE_API_KEY")
 
 line = "=" * 50
 symbol = ""
+stock_class = ""
+index_ticker = ""
 
 def getsymbol(): # function to include validation into the system.
 	global symbol
@@ -37,6 +39,20 @@ def getsymbol(): # function to include validation into the system.
 	else: print("Thanks! Let's see what we can do...")
 
 	symbol = symbol.upper()
+
+def definestock() # get more information about the stock to determine appropriate index bechmark
+	global stock_class
+	global index_ticker
+	stock_class = input("Describe the stock's market capitalization (1=Large Cap, 2=Mid Cap, 3=Small Cap")
+	if stock_class not in [1,2,3]:
+		print("Hmm...we couldn't understand that, please try again.")
+			definestock()
+	if stock_class = 1: 
+		index_ticker = "SPY"
+	elif stock_class = 2:
+		index_ticker = "RMCC"
+	elif stock_class = 3:
+		index_ticker = "RUT"
 
 def convert_month(month): # Taken from Exec Dashboard — save a variable called month with an int and run convert_month()
 	global month_name
@@ -71,6 +87,7 @@ print("")
 print("Welcome to the Robo Advisor Portfolio Manager.")
 print("")
 getsymbol()
+definestock()
 
 # see: https://www.alphavantage.co/documentation/#daily (or a different endpoint, as desired)
 # Assemble URL
@@ -160,18 +177,26 @@ timelow = "$" + "{0:,.2f}".format(timelow)
 
 # Save data to CSV, with help from class notes + Matt + this site: https://stackoverflow.com/questions/5137497/find-current-directory-and-files-directory
 cwd = os.getcwd()
-print(cwd)
 lencwd = len(cwd)
 pathlen = lencwd - 3
 path = cwd[0:pathlen] + "data/"
-print(path)
 
 data.to_csv(path + str(cyear) + "-" + str("{0:02d}".format(cmonth)) + " " + symbol + ".csv")
 
 # Recomendation engine:
 
-sigma = stat.stdev(close_price)
-print(sigma)
+index_url = f"https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol={index_ticker}&outputsize=compact&apikey={api_key}"
+
+
+
+xbar = stat.mean(close_price)
+
+if close_price[0] < xbar:
+	if (xbar - close_price[0]) / xbar >= .20:
+		
+		response_text = "The stock's current closing price is more than 20% below the 100 day average."
+	if (xbar - close_price[0]) / xbar >= .20:
+
 
 
 # TODO: further revise the example outputs below to reflect real information
