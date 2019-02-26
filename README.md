@@ -8,6 +8,16 @@ Issues requests to the [AlphaVantage Stock Market API](https://www.alphavantage.
   + Python 3.7
   + Pip
 
+###Required Python Packages:
+
+  + datetime
+  + dotenv
+  + json
+  + os
+  + pandas
+  + requests
+  + statistics
+
 ## Setup
 
 Before using or developing this application, take a moment to [obtain an AlphaVantage API Key](https://www.alphavantage.co/support/#api-key) (e.g. "abc123").
