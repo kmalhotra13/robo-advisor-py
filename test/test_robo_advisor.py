@@ -25,3 +25,9 @@ def test_convert_month():
 def test_compile_url():
 	result = compile_url("AAPL","TEST_KEY_STRING")
 	assert result == "https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=AAPL&outputsize=compact&apikey=TEST_KEY_STRING"
+
+def test_validate_response():
+	a = validate_response("ASDHAKSDJHAKSDHERRORasdfasdfasdf")
+	assert a == "Error"
+	b = validate_response("ajsdfhlsajdhfladjsfhalsdjfhlasdfhjlasdf")
+	assert b == "Good"

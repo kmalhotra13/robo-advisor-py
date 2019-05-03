@@ -147,6 +147,12 @@ def compile_url(ticker,key):
 	url = f"https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol={ticker}&outputsize=compact&apikey={key}"
 	return url
 
+def validate_response(input):
+	if "Error" in response.text:
+		print("Hmm. Something went wrong there...try again later!")
+		return "Error"
+	else: return "Good"
+
 if __name__ == '__main__':
 
 	print(line)
@@ -162,20 +168,10 @@ if __name__ == '__main__':
 	# Assemble URL
 
 	request_url = compile_url(symbol, api_key)
-	# print(request_url)
-
-	# TODO: use the "requests" package to issue a "GET" request to the specified url, and store the JSON response in a variable...
 
 	response = requests.get(request_url)
-
-	# Validate a valid response given improper response codes:
-
-	if "Error" in response.text:
-		print("Hmm. Something went wrong there...try again later!")
+	if validate_response(response) == "Error":
 		exit()
-
-	# print("RESPONSE STATUS: " + str(response.status_code))
-	# print("RESPONSE TEXT: " + response.text)
 
 	# Turn JSON into readable format:
 
@@ -198,10 +194,6 @@ if __name__ == '__main__':
 		close_price.append(float(v['4. close']))
 		volume.append(v['5. volume'])
 
-	# print(time, open_price, high_price, low_price, close_price, volume)
-
-	# TODO: further parse the JSON response...
-
 	# Make the json easier via a data frame:
 
 	data = pd.DataFrame({
@@ -213,11 +205,10 @@ if __name__ == '__main__':
 		'Volume': volume
 		})
 
-	# TODO: traverse the nested response data structure to find the latest closing price and other values of interest...
+	latest_price_usd = to_usd(float(data.iloc[0]['Closing Price']))
 
-	latest_price_usd = "$" + "{0:,.2f}".format(float(data.iloc[0]['Closing Price'])) #<—— Taken from Groceries Exercise
+	#Parse latest date
 
-	#Parse latest date, taken from exec dashboard:
 	latest_time = time[0]
 	f = list(latest_time.upper())
 	year = f[0] + f[1] + f[2] + f[3]
@@ -229,6 +220,7 @@ if __name__ == '__main__':
 	latest_month_name = convert_month(monthnum)
 
 	# Get current time (Help from: https://docs.python.org/2/library/datetime.html):
+
 	now = dt.datetime.now()
 	cyear = now.year
 	cmonth = int(now.month)
@@ -238,11 +230,12 @@ if __name__ == '__main__':
 	ctime = ctime.strftime("%I:%M%P")
 
 	# Get the 100-day high and low prices:
+
 	timehigh = float(max(high_price))
-	timehigh = "$" + "{0:,.2f}".format(timehigh)
+	timehigh = to_usd(timehigh)
 
 	timelow = float(min(low_price))
-	timelow = "$" + "{0:,.2f}".format(timelow)
+	timelow = to_usd(timelow)
 
 	# Save data to CSV, with help from class notes + Matt + this site: https://stackoverflow.com/questions/5137497/find-current-directory-and-files-directory
 	cwd = os.getcwd()
@@ -254,18 +247,15 @@ if __name__ == '__main__':
 
 	# Pull market data based on stock market capitalization: 
 
-	index_url = f"https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol={index_ticker}&outputsize=compact&apikey={api_key}"
+	index_url = compile_url(index_ticker,api_key)
 	index_response = requests.get(index_url)
-
-	# Validate index selections from settings function + ensure proper data: 
-
-	if "Error" in index_response.text:
+	if validate_response(index_response) == "Error":
 		large_cap_index = "SPY"
 		mid_cap_index = "RMCCX"
 		small_cap_index = "^RUT"
 		print("We ran into an error with your benchmark and unfortunately had to utilize the default benchmarks. Please redefine your stock.")
 		define_stock()
-		index_url = f"https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol={index_ticker}&outputsize=compact&apikey={api_key}"
+		index_url = compile_url(index_ticker,api_key)
 		index_response = requests.get(index_url)
 
 	# Read index data into lists: 
