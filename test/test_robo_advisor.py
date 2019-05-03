@@ -7,6 +7,7 @@ import requests
 import statistics as stat
 
 from app.robo_advisor import *
+from app.robo_advisor import data
 
 def test_to_usd():
 	result = to_usd(5200.2)

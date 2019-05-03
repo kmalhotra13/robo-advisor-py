@@ -110,7 +110,7 @@ def define_stock(): # get more information about the stock to determine appropri
 		index_ticker = small_cap_index
 	print("Thanks! Let's see what we can find...")
 
-def convert_month(month_num):
+def convert_month(month_num): # convert month number to name
 	global month_name
 	if month_num == 1:
 		month_name = "January"
@@ -138,21 +138,28 @@ def convert_month(month_num):
 		month_name = "December"
 	return month_name
 
-def to_usd(amount):
+def to_usd(amount): # convert value to $00.00 format
     two_decimal = "{0:.2f}".format(amount)
     dollar_str = f'${two_decimal}'
     return dollar_str
 
-def compile_url(ticker,key):
+def compile_url(ticker,key): # create alphavantage URL with specified ticker and key
 	url = f"https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol={ticker}&outputsize=compact&apikey={key}"
 	return url
 
-def validate_response(response):
+def validate_response(response): # validate a good API call (no errors)
 	if "Error" in response:
 		print("Hmm. Something went wrong there...try again later!")
 		return "Error"
 	else: return "Good"
 
+def write_to_csv(dataset): # Save data to CSV, with help from class notes + Matt + this site: https://stackoverflow.com/questions/5137497/find-current-directory-and-files-directory
+	cwd = os.getcwd()
+	lencwd = len(cwd)
+	pathlen = lencwd
+	global path
+	path = cwd[0:pathlen] + "/data/"
+	dataset.to_csv(path + str(cyear) + "-" + str("{0:02d}".format(cmonth)) + " " + symbol + ".csv")
 
 if __name__ == '__main__':
 
@@ -239,13 +246,8 @@ if __name__ == '__main__':
 	timelow = float(min(low_price))
 	timelow = to_usd(timelow)
 
-	# Save data to CSV, with help from class notes + Matt + this site: https://stackoverflow.com/questions/5137497/find-current-directory-and-files-directory
-	cwd = os.getcwd()
-	lencwd = len(cwd)
-	pathlen = lencwd
-	path = cwd[0:pathlen] + "/data/"
-
-	data.to_csv(path + str(cyear) + "-" + str("{0:02d}".format(cmonth)) + " " + symbol + ".csv")
+	breakpoint()
+	write_to_csv(data)
 
 	# Pull market data based on stock market capitalization: 
 
