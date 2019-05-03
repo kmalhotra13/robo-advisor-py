@@ -18,6 +18,21 @@ Issues requests to the [AlphaVantage Stock Market API](https://www.alphavantage.
   + requests
   + statistics
 
+## Installation
+
+In order to set up this applet, please download install the source code:
+
+```sh
+git clone git@github.com:kmalhotra/robo-advisor-py
+cd robo-advisor-py/
+```
+
+Install the package dependencies:
+
+```sh
+pip install -r requirements.txt
+```
+
 ## Setup
 
 Before using or developing this application, take a moment to [obtain an AlphaVantage API Key](https://www.alphavantage.co/support/#api-key) (e.g. "abc123").
@@ -31,7 +46,7 @@ Navigate in the command prompt to the appropriate repository directory that cont
 Run the recommendation script:
 
 ```py
-python robo_advisor.py
+python app/robo_advisor.py
 ```
 The command prompt will ask you to enter in a ticker symbol or a menu option:
   + **'settings':** This will allow you to change the benchmark index funds against which the recommendations are made. 
@@ -46,9 +61,26 @@ After that, you will be asked to identify the class of the stock based on the ma
 
 Then, the program will generate a recommendation based on the Sharpe ratios of the stock and the index; if the stock has a higher Sharpe ratio, it will recommend a 'Buy.'
 
+## Testing
+
+From within the virtual environment, install the `pytest` package (first time only):
+
+```sh
+pip install pytest
+```
+
+Run tests:
+
+```sh
+pytest
+```
+
+
 -----
 
 _**Disclaimer**: the creators of this script bear no liability for gains/losses from on investments made based on provided recommendations._
+
+
 
 
 
