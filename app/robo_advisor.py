@@ -11,6 +11,8 @@ import pandas as pd
 import requests
 import statistics as stat
 
+from functions import *
+
 
 load_dotenv() # loads environment variables set in a ".env" file, including the value of the ALPHAVANTAGE_API_KEY variable
 
@@ -19,126 +21,12 @@ api_key = os.environ.get("ALPHAVANTAGE_API_KEY")
 # print("API KEY: " + api_key)
 
 line = "=" * 50
-global symbol
-symbol = ""
-stock_class = ""
-index_ticker = ""
-settings_binary = int(0)
+# global symbol
+# symbol = ""
+# stock_class = ""
+# index_ticker = ""
+# settings_binary = int(0)
 
-def settings(): # Functionality to change index benchmarks
-	global large_cap_index
-	global mid_cap_index
-	global small_cap_index
-	global settings_binary
-	settings_binary = int(1)
-	large_cap_index = "SPY"
-	mid_cap_index = "RMCCX"
-	small_cap_index = "^RUT"
-	print(line)
-	print("")
-	print("Here, you can choose which benchmarks you wish to use.")
-	print(f"    DEFAULTS: Large Cap: {large_cap_index}, Mid Cap: {mid_cap_index}, Small Cap: {small_cap_index}")
-	print("")
-	print(line)
-	large_cap_index = ""
-	mid_cap_index = ""
-	small_cap_index = ""
-	settings_selection = input("Choose '1' to edit the Large Cap benchmark, '2' for the Mid Cap, and '3' for the Small Cap. Choose '0' to return to the defaults: ")
-	settings_selection = int(settings_selection)
-	if settings_selection == 0:
-		large_cap_index = "SPY"
-		mid_cap_index = "RMCCX"
-		small_cap_index = "^RUT"
-	elif settings_selection == 1:
-		large_cap_index = input("Please input a valid Large Cap index's ticker symbol: ")
-		mid_cap_index = "RMCCX"
-		small_cap_index = ""
-		print(f"Setting saved: {large_cap_index} is the new Large Cap benchmark")
-	elif settings_selection == 2:
-		large_cap_index = "SPY"
-		mid_cap_index = input("Please input a valid Mid Cap index's ticker symbol: ")
-		small_cap_index = ""
-		print(f"Setting saved: {mid_cap_index} is the new Mid Cap benchmark")
-	elif settings_selection == 3:
-		large_cap_index = "SPY"
-		mid_cap_index = "RMCCX"
-		small_cap_index = input("Please input a valid Small Cap index's ticker symbol: ")
-		print(f"Setting saved: {small_cap_index} is the new Small Cap benchmark")
-	else:
-		print("Please choose a valid settings selection.")
-		settings()
-
-def getsymbol(): # function to include validation into the system.
-	global large_cap_index
-	global mid_cap_index
-	global small_cap_index
-	global settings_binary
-	global symbol
-	symbol = input("Please specify a stock symbol ('settings' for settings or 'exit' to exit): ") 
-	if symbol == "exit":
-		exit()
-	if symbol == "settings":
-		settings()
-		settings_binary = 1
-		getsymbol()
-	if len(symbol) < 1:
-		print("Oops, we didn't get your symbol. Mind trying again?")
-		getsymbol() 
-	elif len(symbol) > 6: # Per a quick Google, 6 seems to be the max length of a ticker: https://www.quora.com/Whats-the-shortest-and-the-longest-that-a-companys-ticker-can-be-on-a-stock-market-exchange
-		print("Hmm...that symbol seems a bit long...mind trying again?")
-		getsymbol()
-	
-	if settings_binary == int(0): 
-		large_cap_index = "SPY"
-		mid_cap_index = "RMCCX"
-		small_cap_index = "^RUT"
-	
-	symbol = symbol.upper()
-	
-##
-
-def define_stock(): # get more information about the stock to determine appropriate index bechmark
-	global stock_class
-	global index_ticker
-	stock_class = int(input("Describe the stock's market capitalization (1=Large Cap, 2=Mid Cap, 3=Small Cap): "))
-	if stock_class not in [1,2,3]:
-		print("Hmm...we couldn't understand that, please try again.")
-		define_stock()
-	if stock_class == 1: 
-		index_ticker = large_cap_index
-	elif stock_class == 2:
-		index_ticker = mid_cap_index
-	elif stock_class == 3:
-		index_ticker = small_cap_index
-	print("Thanks! Let's see what we can find...")
-
-def convert_month(month): # Taken from Exec Dashboard — save a variable called month with an int and run convert_month()
-	global month_name
-	if month == 1:
-		month_name = "January"
-	elif month == 2:
-		month_name = "February"
-	elif month == 3:
-		month_name = "March"
-	elif month == 4:
-		month_name = "April"
-	elif month == 5:
-		month_name = "May"
-	elif month == 6:
-		month_name = "June"
-	elif month == 7:
-		month_name = "July"
-	elif month == 8:
-		month_name = "August"
-	elif month == 9:
-		month_name = "September"
-	elif month == 10:
-		month_name = "October"
-	elif month == 11:
-		month_name = "November"
-	elif month == 12:
-		month_name = "December"
-	return month_name
 
 print(line)
 print("")
@@ -238,8 +126,8 @@ timelow = "$" + "{0:,.2f}".format(timelow)
 # Save data to CSV, with help from class notes + Matt + this site: https://stackoverflow.com/questions/5137497/find-current-directory-and-files-directory
 cwd = os.getcwd()
 lencwd = len(cwd)
-pathlen = lencwd - 3
-path = cwd[0:pathlen] + "data/"
+pathlen = lencwd
+path = cwd[0:pathlen] + "/data/"
 
 data.to_csv(path + str(cyear) + "-" + str("{0:02d}".format(cmonth)) + " " + symbol + ".csv")
 
