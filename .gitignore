@@ -1,4 +1,3 @@
-# .gitignore
-
-# ignore secret environment variable values in the ".env" file
+.pytest_cache
+__pycache__
 .env
