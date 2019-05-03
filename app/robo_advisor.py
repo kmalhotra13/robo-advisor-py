@@ -147,11 +147,14 @@ def compile_url(ticker,key):
 	url = f"https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol={ticker}&outputsize=compact&apikey={key}"
 	return url
 
-def validate_response(input):
+def validate_response(response):
 	if "Error" in response.text:
 		print("Hmm. Something went wrong there...try again later!")
 		return "Error"
 	else: return "Good"
+
+def write_to_csv(dataset):
+
 
 if __name__ == '__main__':
 
