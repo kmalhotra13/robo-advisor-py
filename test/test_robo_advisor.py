@@ -27,7 +27,7 @@ def test_compile_url():
 	assert result == "https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=AAPL&outputsize=compact&apikey=TEST_KEY_STRING"
 
 def test_validate_response():
-	a = validate_response("ASDHAKSDJHAKSDHERRORasdfasdfasdf")
+	a = validate_response("ASDHAKSDJHAKSDHErrorasdfasdfasdf")
 	assert a == "Error"
 	b = validate_response("ajsdfhlsajdhfladjsfhalsdjfhlasdfhjlasdf")
 	assert b == "Good"

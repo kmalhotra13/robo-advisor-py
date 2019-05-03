@@ -148,7 +148,7 @@ def compile_url(ticker,key):
 	return url
 
 def validate_response(response):
-	if "Error" in response.text:
+	if "Error" in response:
 		print("Hmm. Something went wrong there...try again later!")
 		return "Error"
 	else: return "Good"
@@ -171,7 +171,8 @@ if __name__ == '__main__':
 	request_url = compile_url(symbol, api_key)
 
 	response = requests.get(request_url)
-	if validate_response(response) == "Error":
+	response_val = response.text
+	if validate_response(response_val) == "Error":
 		exit()
 
 	# Turn JSON into readable format:
@@ -250,7 +251,8 @@ if __name__ == '__main__':
 
 	index_url = compile_url(index_ticker,api_key)
 	index_response = requests.get(index_url)
-	if validate_response(index_response) == "Error":
+	index_response_val = index_response.text
+	if validate_response(index_response_val) == "Error":
 		large_cap_index = "SPY"
 		mid_cap_index = "RMCCX"
 		small_cap_index = "^RUT"
