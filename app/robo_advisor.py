@@ -112,33 +112,38 @@ def define_stock(): # get more information about the stock to determine appropri
 		index_ticker = small_cap_index
 	print("Thanks! Let's see what we can find...")
 
-def convert_month(month): # Taken from Exec Dashboard — save a variable called month with an int and run convert_month()
+def convert_month(month_num):
 	global month_name
-	if month == 1:
+	if month_num == 1:
 		month_name = "January"
-	elif month == 2:
+	elif month_num == 2:
 		month_name = "February"
-	elif month == 3:
+	elif month_num == 3:
 		month_name = "March"
-	elif month == 4:
+	elif month_num == 4:
 		month_name = "April"
-	elif month == 5:
+	elif month_num == 5:
 		month_name = "May"
-	elif month == 6:
+	elif month_num == 6:
 		month_name = "June"
-	elif month == 7:
+	elif month_num == 7:
 		month_name = "July"
-	elif month == 8:
+	elif month_num == 8:
 		month_name = "August"
-	elif month == 9:
+	elif month_num == 9:
 		month_name = "September"
-	elif month == 10:
+	elif month_num == 10:
 		month_name = "October"
-	elif month == 11:
+	elif month_num == 11:
 		month_name = "November"
-	elif month == 12:
+	elif month_num == 12:
 		month_name = "December"
 	return month_name
+
+def to_usd(amount):
+    two_decimal = "{0:.2f}".format(amount)
+    dollar_str = f'${two_decimal}'
+    return dollar_str
 
 if __name__ == '__main__':
 
