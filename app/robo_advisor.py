@@ -153,8 +153,6 @@ def validate_response(response):
 		return "Error"
 	else: return "Good"
 
-def write_to_csv(dataset):
-
 
 if __name__ == '__main__':
 
