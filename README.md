@@ -1,4 +1,4 @@
-# "Robo Advisor" Project
+# "Robo Advisor" Project [![Build Status](https://travis-ci.com/kmalhotra13/robo-advisor-py.svg?branch=master)](https://travis-ci.com/kmalhotra13/robo-advisor-py)
 
 Issues requests to the [AlphaVantage Stock Market API](https://www.alphavantage.co/) in order to provide automated stock or cryptocurrency trading recommendations.
 
