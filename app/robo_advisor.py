@@ -94,8 +94,6 @@ def getsymbol(): # function to include validation into the system.
 		small_cap_index = "^RUT"
 	
 	symbol = symbol.upper()
-	
-##
 
 def define_stock(): # get more information about the stock to determine appropriate index bechmark
 	global stock_class
@@ -145,6 +143,10 @@ def to_usd(amount):
     dollar_str = f'${two_decimal}'
     return dollar_str
 
+def compile_url(ticker,key):
+	url = f"https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol={ticker}&outputsize=compact&apikey={key}"
+	return url
+
 if __name__ == '__main__':
 
 	print(line)
@@ -159,7 +161,7 @@ if __name__ == '__main__':
 	# see: https://www.alphavantage.co/documentation/#daily (or a different endpoint, as desired)
 	# Assemble URL
 
-	request_url = f"https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol={symbol}&outputsize=compact&apikey={api_key}"
+	request_url = compile_url(symbol, api_key)
 	# print(request_url)
 
 	# TODO: use the "requests" package to issue a "GET" request to the specified url, and store the JSON response in a variable...

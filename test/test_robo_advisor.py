@@ -8,11 +8,6 @@ import statistics as stat
 
 from app.robo_advisor import *
 
-
-load_dotenv()
-
-api_key = os.environ.get("ALPHAVANTAGE_API_KEY")
-
 def test_to_usd():
 	result = to_usd(5200.2)
 	assert result == "$5200.20"
@@ -26,3 +21,7 @@ def test_convert_month():
 	assert c == "September"
 	d = convert_month(12)
 	assert d == "December"
+
+def test_compile_url():
+	result = compile_url("AAPL","TEST_KEY_STRING")
+	assert result == "https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=AAPL&outputsize=compact&apikey=TEST_KEY_STRING"
