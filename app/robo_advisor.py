@@ -246,7 +246,7 @@ if __name__ == '__main__':
 	timelow = float(min(low_price))
 	timelow = to_usd(timelow)
 
-	breakpoint()
+	# breakpoint()
 	write_to_csv(data)
 
 	# Pull market data based on stock market capitalization: 
